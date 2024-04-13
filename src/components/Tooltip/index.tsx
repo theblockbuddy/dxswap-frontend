@@ -4,6 +4,7 @@ import Popover, { PopoverProps } from '../Popover'
 
 const TooltipContainer = styled.div`
   width: 228px;
+  color: #000;
   line-height: 150%;
   font-weight: 400;
 `
