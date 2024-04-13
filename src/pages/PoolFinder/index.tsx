@@ -1,25 +1,25 @@
-import { Currency, JSBI, TokenAmount } from 'dxswap-sdk';
-import React, { useCallback, useEffect, useState } from 'react';
-import { Plus } from 'react-feather';
-import { Link } from 'react-router-dom';
-import { Text } from 'rebass';
-import { ButtonDropdownLight, ButtonPrimary } from '../../components/Button';
-import { LightCard } from '../../components/Card';
-import { AutoColumn, ColumnCenter } from '../../components/Column';
-import CurrencyLogo from '../../components/CurrencyLogo';
-import { FindPoolTabs } from '../../components/NavigationTabs';
-import { MinimalPositionCard } from '../../components/PositionCard';
-import Row, { RowBetween } from '../../components/Row';
-import CurrencySearchModal from '../../components/SearchModal/CurrencySearchModal';
-import { PairState, usePair } from '../../data/Reserves';
-import { useActiveWeb3React } from '../../hooks';
-import { useNativeCurrency } from '../../hooks/useNativeCurrency';
-import { usePairAdder } from '../../state/user/hooks';
-import { useTokenBalance } from '../../state/wallet/hooks';
-import { TYPE } from '../../theme';
-import { currencyId } from '../../utils/currencyId';
-import AppBody from '../AppBody';
-import { Dots } from '../Pool/styleds';
+import { Currency, JSBI, TokenAmount } from 'dxswap-sdk'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Plus } from 'react-feather'
+import { Link } from 'react-router-dom'
+import { Text } from 'rebass'
+import { ButtonDropdownLight, ButtonPrimary } from '../../components/Button'
+import { LightCard } from '../../components/Card'
+import { AutoColumn, ColumnCenter } from '../../components/Column'
+import CurrencyLogo from '../../components/CurrencyLogo'
+import { FindPoolTabs } from '../../components/NavigationTabs'
+import { MinimalPositionCard } from '../../components/PositionCard'
+import Row, { RowBetween } from '../../components/Row'
+import CurrencySearchModal from '../../components/SearchModal/CurrencySearchModal'
+import { PairState, usePair } from '../../data/Reserves'
+import { useActiveWeb3React } from '../../hooks'
+import { useNativeCurrency } from '../../hooks/useNativeCurrency'
+import { usePairAdder } from '../../state/user/hooks'
+import { useTokenBalance } from '../../state/wallet/hooks'
+import { TYPE } from '../../theme'
+import { currencyId } from '../../utils/currencyId'
+import AppBody from '../AppBody'
+import { Dots } from '../Pool/styleds'
 
 enum Fields {
   TOKEN0 = 0,
@@ -27,49 +27,49 @@ enum Fields {
 }
 
 export default function PoolFinder() {
-  const { account } = useActiveWeb3React();
-  const nativeCurrency = useNativeCurrency();
+  const { account } = useActiveWeb3React()
+  const nativeCurrency = useNativeCurrency()
 
-  const [showSearch, setShowSearch] = useState<boolean>(false);
-  const [activeField, setActiveField] = useState<number>(Fields.TOKEN1);
+  const [showSearch, setShowSearch] = useState<boolean>(false)
+  const [activeField, setActiveField] = useState<number>(Fields.TOKEN1)
 
-  const [currency0, setCurrency0] = useState<Currency | null>(nativeCurrency);
-  const [currency1, setCurrency1] = useState<Currency | null>(Currency.MATIC);
+  const [currency0, setCurrency0] = useState<Currency | null>(nativeCurrency)
+  const [currency1, setCurrency1] = useState<Currency | null>(nativeCurrency)
 
-  const [pairState, pair] = usePair(currency0 ?? undefined, currency1 ?? undefined);
-  const addPair = usePairAdder();
+  const [pairState, pair] = usePair(currency0 ?? undefined, currency1 ?? undefined)
+  const addPair = usePairAdder()
   useEffect(() => {
     if (pair) {
-      addPair(pair);
+      addPair(pair)
     }
-  }, [pair, addPair]);
+  }, [pair, addPair])
 
   const validPairNoLiquidity: boolean =
     pairState === PairState.NOT_EXISTS ||
     Boolean(
       pairState === PairState.EXISTS &&
-      pair &&
-      JSBI.equal(pair.reserve0.raw, JSBI.BigInt(0)) &&
-      JSBI.equal(pair.reserve1.raw, JSBI.BigInt(0))
-    );
+        pair &&
+        JSBI.equal(pair.reserve0.raw, JSBI.BigInt(0)) &&
+        JSBI.equal(pair.reserve1.raw, JSBI.BigInt(0))
+    )
 
-  const position: TokenAmount | undefined = useTokenBalance(account ?? undefined, pair?.liquidityToken);
-  const hasPosition = Boolean(position && JSBI.greaterThan(position.raw, JSBI.BigInt(0)));
+  const position: TokenAmount | undefined = useTokenBalance(account ?? undefined, pair?.liquidityToken)
+  const hasPosition = Boolean(position && JSBI.greaterThan(position.raw, JSBI.BigInt(0)))
 
   const handleCurrencySelect = useCallback(
     (currency: Currency) => {
       if (activeField === Fields.TOKEN0) {
-        setCurrency0(currency);
+        setCurrency0(currency)
       } else {
-        setCurrency1(currency);
+        setCurrency1(currency)
       }
     },
     [activeField]
-  );
+  )
 
   const handleSearchDismiss = useCallback(() => {
-    setShowSearch(false);
-  }, [setShowSearch]);
+    setShowSearch(false)
+  }, [setShowSearch])
 
   const prerequisiteMessage = (
     <LightCard padding="20px">
@@ -77,7 +77,7 @@ export default function PoolFinder() {
         {!account ? 'Connect to a wallet to find pools' : 'Select a token to find your liquidity.'}
       </TYPE.body>
     </LightCard>
-  );
+  )
 
   return (
     <AppBody>
@@ -86,8 +86,8 @@ export default function PoolFinder() {
         <ButtonDropdownLight
           height="52px"
           onClick={() => {
-            setShowSearch(true);
-            setActiveField(Fields.TOKEN0);
+            setShowSearch(true)
+            setActiveField(Fields.TOKEN0)
           }}
         >
           {currency0 ? (
@@ -111,8 +111,8 @@ export default function PoolFinder() {
         <ButtonDropdownLight
           height="52px"
           onClick={() => {
-            setShowSearch(true);
-            setActiveField(Fields.TOKEN1);
+            setShowSearch(true)
+            setActiveField(Fields.TOKEN1)
           }}
         >
           {currency1 ? (
@@ -199,5 +199,5 @@ export default function PoolFinder() {
         selectedCurrency={(activeField === Fields.TOKEN0 ? currency1 : currency0) ?? undefined}
       />
     </AppBody>
-  );
+  )
 }
