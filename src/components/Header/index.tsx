@@ -1,23 +1,23 @@
-import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import React from 'react'
+import { NavLink, withRouter } from 'react-router-dom'
 
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-import { useActiveWeb3React } from '../../hooks';
-import { useDarkModeManager } from '../../state/user/hooks';
-import { useNativeCurrencyBalances } from '../../state/wallet/hooks';
+import { useActiveWeb3React } from '../../hooks'
+import { useDarkModeManager } from '../../state/user/hooks'
+import { useNativeCurrencyBalances } from '../../state/wallet/hooks'
 
-import Settings from '../Settings';
+import Settings from '../Settings'
 
-import Row, { RowFixed } from '../Row';
-import Web3Status from '../Web3Status';
-import { useTranslation } from 'react-i18next';
-import MobileOptions from './MobileOptions';
-import { useNativeCurrency } from '../../hooks/useNativeCurrency';
+import Row, { RowFixed } from '../Row'
+import Web3Status from '../Web3Status'
+import { useTranslation } from 'react-i18next'
+import MobileOptions from './MobileOptions'
+import { useNativeCurrency } from '../../hooks/useNativeCurrency'
 
-import { useWeb3React } from '@web3-react/core';
-import { TYPE } from '../../theme';
-import esptLogo from '../../assets/svg/esptsvg.svg';
+import { useWeb3React } from '@web3-react/core'
+import { TYPE } from '../../theme'
+import esptLogo from '../../assets/svg/esptsvg.svg'
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -41,7 +41,7 @@ const HeaderFrame = styled.div`
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
         padding: 0.5rem 1rem;
   `}
-`;
+`
 
 const HeaderControls = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ const HeaderControls = styled.div`
     border-radius: 12px 12px 0 0;
     background-color: ${({ theme }) => theme.bg1};
   `};
-`;
+`
 
 const HeaderElement = styled.div`
   display: flex;
@@ -75,14 +75,14 @@ const HeaderElement = styled.div`
    flex-direction: row-reverse;
     align-items: center;
   `};
-`;
+`
 
 const MoreLinksIcon = styled(HeaderElement)`
   display: none;
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     display: flex;
   `};
-`;
+`
 
 const MobileSettingsWrap = styled.div`
   display: none;
@@ -90,7 +90,7 @@ const MobileSettingsWrap = styled.div`
     display: block;
     align-items: center;
   `}
-`;
+`
 
 const DesktopSettingsWrap = styled.div`
   display: flex;
@@ -98,13 +98,13 @@ const DesktopSettingsWrap = styled.div`
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     display: none;
   `}
-`;
+`
 
-const HeaderRow = styled(RowFixed) <{ isDark: boolean; }>`
+const HeaderRow = styled(RowFixed)<{ isDark: boolean }>`
   ${({ theme }) => theme.mediaWidth.upToMedium`
     width: 100%;
   `};
-`;
+`
 
 const HeaderLinks = styled(Row)`
   justify-content: center;
@@ -115,13 +115,13 @@ const HeaderLinks = styled(Row)`
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     padding: 1rem 0 1rem 0;
   `};
-`;
+`
 
-const AccountElement = styled.div<{ active: boolean, networkError: boolean; }>`
+const AccountElement = styled.div<{ active: boolean; networkError: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: ${props => props.networkError ? 'transparent' : ({ theme }) => theme.bg1};
+  background-color: ${props => (props.networkError ? 'transparent' : ({ theme }) => theme.bg1)};
   border: solid 2px transparent;
   box-sizing: border-box;
   color: ${({ theme }) => theme.yellow1};
@@ -133,7 +133,7 @@ const AccountElement = styled.div<{ active: boolean, networkError: boolean; }>`
   :focus {
     border: solid 2px transparent;
   }
-`;
+`
 
 const Title = styled.a`
   display: flex;
@@ -150,17 +150,16 @@ const Title = styled.a`
   :hover {
     cursor: pointer;
   }
-`;
-
+`
 
 const DXswapIcon = styled.div`
   img {
     margin-left: 5px;
     margin-bottom: -5px;
   }
-`;
+`
 
-const activeClassName = 'ACTIVE';
+const activeClassName = 'ACTIVE'
 
 export const StyledNavLink = styled(NavLink).attrs({
   activeClassName
@@ -186,7 +185,7 @@ export const StyledNavLink = styled(NavLink).attrs({
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
     display: none;
   `};
-`;
+`
 
 // const StyledExternalLink = styled(ExternalLink).attrs({
 //   activeClassName
@@ -208,20 +207,20 @@ export const StyledNavLink = styled(NavLink).attrs({
 //   `};
 // `;
 
-function Header({ history }: { history: any; }) {
-  const { account } = useActiveWeb3React();
-  const { t } = useTranslation();
-  const { error } = useWeb3React();
+function Header({ history }: { history: any }) {
+  const { account } = useActiveWeb3React()
+  const { t } = useTranslation()
+  const { error } = useWeb3React()
 
-  const nativeCurrency = useNativeCurrency();
-  const userNativeCurrencyBalances = useNativeCurrencyBalances(account ? [account] : []);
-  const userNativeCurrencyBalance = userNativeCurrencyBalances?.[account || ''];
-  const [isDark] = useDarkModeManager();
+  const nativeCurrency = useNativeCurrency()
+  const userNativeCurrencyBalances = useNativeCurrencyBalances(account ? [account] : [])
+  const userNativeCurrencyBalance = userNativeCurrencyBalances?.[account || '']
+  const [isDark] = useDarkModeManager()
 
   return (
     <HeaderFrame>
       <HeaderRow isDark={isDark}>
-        <Title href=".">
+        <Title href="https://espento.com/">
           <DXswapIcon>
             <img width={150} src={isDark ? esptLogo : esptLogo} alt="logo" />
           </DXswapIcon>
@@ -295,7 +294,7 @@ function Header({ history }: { history: any; }) {
         </DesktopSettingsWrap>
       </HeaderControls>
     </HeaderFrame>
-  );
+  )
 }
 
-export default withRouter(Header);
+export default withRouter(Header)
