@@ -216,7 +216,11 @@ function Header({ history }: { history: any }) {
   const userNativeCurrencyBalances = useNativeCurrencyBalances(account ? [account] : [])
   const userNativeCurrencyBalance = userNativeCurrencyBalances?.[account || '']
   const [isDark] = useDarkModeManager()
-
+  const styles = {
+    fontSize: '8px', // Adjust the font size as needed
+    color: 'black',
+    marginLeft: '2px' // Change the color to your preference
+  }
   return (
     <HeaderFrame>
       <HeaderRow isDark={isDark}>
@@ -230,7 +234,7 @@ function Header({ history }: { history: any }) {
         </Title>
         <HeaderLinks>
           <StyledNavLink id={`swap-nav-link`} to={'/swap'} isActive={() => history.location.pathname.includes('/swap')}>
-            {t('Swap')}
+            {t('Swap')} <span style={styles}>BETA</span>
           </StyledNavLink>
           <StyledNavLink
             id={`pool-nav-link`}
