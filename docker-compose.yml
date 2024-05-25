@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  server:
+    image: esp-swap
+    build:
+      context: ./
+      dockerfile: ./dockerfile
+    ports:
+      - 4002:3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
