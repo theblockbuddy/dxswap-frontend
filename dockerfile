@@ -1,8 +1,8 @@
 # Multi-stage build for the builder stage
-FROM node:20
+FROM node:lts-alpine3.19
 
 WORKDIR /app
-
+RUN apk add --no-cache git
 # Copy only the necessary files to install dependencies
 COPY package.json yarn.lock ./
 
