@@ -180,7 +180,7 @@ export default function Swap() {
   const atMaxAmountInput = Boolean(maxAmountInput && parsedAmounts[Field.INPUT]?.equalTo(maxAmountInput))
 
   // the callback to execute the swap
-  const { callback: swapCallback } = useSwapCallback(trade, allowedSlippage, recipient) // need to add this error: swapCallbackError
+  const { callback: swapCallback, error: swapCallbackError } = useSwapCallback(trade, allowedSlippage, recipient) // need to add this error: swapCallbackError
 
   const { priceImpactWithoutFee } = computeTradePriceBreakdown(trade)
 
@@ -375,12 +375,9 @@ export default function Swap() {
             )}
             <div>
               {!account ? (
-                <ButtonPrimary onClick={toggleWalletModal} disabled>
-                  Connect Wallet
-                </ButtonPrimary>
+                <ButtonPrimary onClick={toggleWalletModal}>Connect Wallet</ButtonPrimary>
               ) : showWrap ? (
-                <ButtonPrimary disabled onClick={onWrap}>
-                  {/* disabled={Boolean(wrapInputError)} */}
+                <ButtonPrimary disabled={Boolean(wrapInputError)} onClick={onWrap}>
                   {wrapInputError ??
                     (wrapType === WrapType.WRAP ? 'Wrap' : wrapType === WrapType.UNWRAP ? 'Unwrap' : null)}
                 </ButtonPrimary>
@@ -392,8 +389,7 @@ export default function Swap() {
                 <RowBetween>
                   <ButtonConfirmed
                     onClick={approveCallback}
-                    disabled
-                    // disabled={approval !== ApprovalState.NOT_APPROVED || approvalSubmitted}
+                    disabled={approval !== ApprovalState.NOT_APPROVED || approvalSubmitted}
                     width="48%"
                     altDisabledStyle={approval === ApprovalState.PENDING} // show solid button while waiting
                     confirmed={approval === ApprovalState.APPROVED}
@@ -424,10 +420,9 @@ export default function Swap() {
                     }}
                     width="48%"
                     id="swap-button"
-                    // disabled={
-                    //   !isValid || approval !== ApprovalState.APPROVED || (priceImpactSeverity > 3 && !isExpertMode)
-                    // }
-                    disabled
+                    disabled={
+                      !isValid || approval !== ApprovalState.APPROVED || (priceImpactSeverity > 3 && !isExpertMode)
+                    }
                     error={isValid && priceImpactSeverity > 2}
                   >
                     {priceImpactSeverity > 3 && !isExpertMode
@@ -451,8 +446,7 @@ export default function Swap() {
                     }
                   }}
                   id="swap-button"
-                  // disabled={!isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError}
-                  disabled
+                  disabled={!isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError}
                 >
                   <Text>
                     {swapInputError
