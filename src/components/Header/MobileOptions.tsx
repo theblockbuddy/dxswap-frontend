@@ -108,7 +108,7 @@ export default function MobileOptions({ history }: { history: any }) {
 
           <Box>
             <StyledExternalLink id={`stake-nav-link`} href={'https://app.espento.network/addLiquidity'}>
-              Liquidity
+              Liquidity{' '}
               <span style={{ fontSize: '11px', marginTop: '3px', marginLeft: '3px' }}>
                 {' '}
                 <svg viewBox="0 0 24 24" color="primary" width="14px" xmlns="http://www.w3.org/2000/svg">
