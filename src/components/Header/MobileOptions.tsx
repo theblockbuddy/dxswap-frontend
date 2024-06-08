@@ -107,7 +107,7 @@ export default function MobileOptions({ history }: { history: any }) {
           </Box> */}
 
           <Box>
-            <StyledExternalLink id={`stake-nav-link`} href={'https://espento.com/liquidity'}>
+            <StyledExternalLink id={`stake-nav-link`} href={'https://app.espento.network/addLiquidity'}>
               Liquidity
               <span style={{ fontSize: '11px', marginTop: '3px', marginLeft: '3px' }}>
                 {' '}

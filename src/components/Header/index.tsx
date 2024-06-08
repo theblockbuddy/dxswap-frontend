@@ -249,8 +249,8 @@ function Header({ history }: { history: any }) {
           >
             {t('pool')}
           </StyledNavLink> */}
-          <StyledExternalLink id={`stake-nav-link`} href={`https://espento.com/liquidity`}>
-            Liquidity
+          <StyledExternalLink id={`stake-nav-link`} href={`https://app.espento.network/addLiquidity`}>
+            {' '}
             <Text ml="3px" fontSize="11px" marginTop="3px">
               <svg viewBox="0 0 24 24" color="primary" width="14px" xmlns="http://www.w3.org/2000/svg">
                 <path
