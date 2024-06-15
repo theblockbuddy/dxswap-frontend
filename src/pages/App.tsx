@@ -1,18 +1,18 @@
-import React, { Suspense } from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import styled from 'styled-components';
-import Header from '../components/Header';
-import Popups from '../components/Popups';
-import Web3ReactManager from '../components/Web3ReactManager';
-import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader';
-import AddLiquidity from './AddLiquidity';
-import { RedirectDuplicateTokenIds, RedirectOldAddLiquidityPathStructure } from './AddLiquidity/redirects';
-import Pool from './Pool';
-import PoolFinder from './PoolFinder';
-import RemoveLiquidity from './RemoveLiquidity';
-import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redirects';
-import Swap from './Swap';
-import { RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects';
+import React, { Suspense } from 'react'
+import { Route, Switch, BrowserRouter } from 'react-router-dom'
+import styled from 'styled-components'
+import Header from '../components/Header'
+import Popups from '../components/Popups'
+import Web3ReactManager from '../components/Web3ReactManager'
+import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
+import AddLiquidity from './AddLiquidity'
+import { RedirectDuplicateTokenIds, RedirectOldAddLiquidityPathStructure } from './AddLiquidity/redirects'
+import Pool from './Pool'
+import PoolFinder from './PoolFinder'
+import RemoveLiquidity from './RemoveLiquidity'
+import { RedirectOldRemoveLiquidityPathStructure } from './RemoveLiquidity/redirects'
+import Swap from './Swap'
+import { RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
 // import Marquee from '../components/Marquee';
 
 const AppWrapper = styled.div`
@@ -20,7 +20,7 @@ const AppWrapper = styled.div`
   flex-flow: column;
   align-items: flex-start;
   overflow-x: hidden;
-`;
+`
 
 const HeaderWrapper = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -28,7 +28,7 @@ const HeaderWrapper = styled.div`
   z-index: 4;
   height: 86px;
   justify-content: space-between;
-`;
+`
 
 const BodyWrapper = styled.div`
   display: flex;
@@ -48,7 +48,7 @@ const BodyWrapper = styled.div`
   `};
 
   z-index: 1;
-`;
+`
 
 // const MarqueeWrapper = styled.div`
 //   display: flex;
@@ -71,7 +71,7 @@ const BodyWrapper = styled.div`
 
 const Marginer = styled.div`
   margin-top: 5rem;
-`;
+`
 
 const Footer = styled.div`
   font-size: 12px;
@@ -80,7 +80,7 @@ const Footer = styled.div`
   margin: auto;
   padding-bottom: 16px
   color: #fffa;
-`;
+`
 
 export default function App() {
   return (
@@ -108,7 +108,7 @@ export default function App() {
                 <Route exact path="/add/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
                 <Route exact strict path="/remove/:tokens" component={RedirectOldRemoveLiquidityPathStructure} />
                 <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
-                <Route component={RedirectPathToSwapOnly} />
+                {/* <Route component={RedirectPathToSwapOnly} /> */}
               </Switch>
             </Web3ReactManager>
             {/* <MarqueeWrapper>
@@ -117,11 +117,9 @@ export default function App() {
             <Marginer />
           </BodyWrapper>
 
-          <Footer>
-
-          </Footer>
+          <Footer></Footer>
         </AppWrapper>
       </BrowserRouter>
     </Suspense>
-  );
+  )
 }
