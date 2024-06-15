@@ -304,9 +304,6 @@ function Header({ history }: { history: any }) {
               </svg>
             </Text>
           </StyledExternalLink>{' '}
-          <StyledExternalLink id={`stake-nav-link`} href={`/pool`}>
-            .<Text ml="3px" fontSize="11px" marginTop="3px"></Text>
-          </StyledExternalLink>
           <MobileSettingsWrap>
             <Settings />
           </MobileSettingsWrap>
